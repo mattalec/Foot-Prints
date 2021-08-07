@@ -1,0 +1,17 @@
+body {
+	margin: 0;
+	font-family: sans-serif;
+	color: blue;
+}
+
+.content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10vh;
+	text-align: center;
+}
+
+td {
+	padding: 10px;
+}
