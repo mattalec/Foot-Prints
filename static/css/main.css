@@ -1,17 +1,57 @@
 body {
-	margin: 0;
-	font-family: sans-serif;
-	color: blue;
+	display: flex;
+	margin: 0px;
 }
 
-.content {
+table {
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	margin-top: 10vh;
+	align-itmes: center;
+	width: 100vw;
 	text-align: center;
 }
 
 td {
-	padding: 10px;
+	padding: 5px;
+}
+
+.small {
+	height: 100%;
+	width: 10vw;
+}
+
+.smaller {
+	height: 100%;
+	width: 3vh;
+}
+
+.big {
+	height: 100%;
+	width: 20vw;
+}
+
+#table-head td {
+	font-weight: bold;
+	background-color: lightblue;
+}
+
+.medication {
+	text-align: left;
+}
+#first-row td {
+	border: 0px;
+	font-weight: bold;
+}
+#break {
+	height: 1vh;
+	background-color: black;
+	padding: 0px;
+}
+#break-blank {
+	height: 0.5vh;
+	background-color: white;
+	padding: 0px;
+}
+#email {
+	text-align: center;
 }
