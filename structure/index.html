@@ -3,7 +3,69 @@
 <head>
 
 <style>
+	body {
+		display: flex;
+		margin: 0px;
+	}
 
+	table {
+		display: flex;
+		justify-content: center;
+		align-itmes: center;
+		width: 100vw;
+		text-align: center;
+	}
+
+	td {
+		padding: 5px;
+	}
+
+	.small {
+		height: 100%;
+		width: 10vw;
+	}
+
+	.smaller {
+		height: 100%;
+		width: 3vh;
+	}
+
+	.big {
+		height: 100%;
+		width: 20vw;
+	}
+
+	#table-head td {
+		font-weight: bold;
+		background-color: lightblue;
+	}
+
+	.medication {
+		text-align: left;
+	}
+	#first-row td {
+		border: 0px;
+		font-weight: bold;
+	}
+	#break {
+		height: 1vh;
+		background-color: black;
+		padding: 0px;
+	}
+	#break-blank {
+		height: 0.5vh;
+		background-color: white;
+		padding: 0px;
+	}
+	#email {
+		text-align: center;
+	}
+	#success-button {
+		background-color: green;
+	}
+	#error-button {
+		background-color: red;
+	}
 </style>
 
 </head>
@@ -29,8 +91,8 @@
 		<td class='email' colspan='2'>alec.philip.matthews@nhs.net</td>
 		<td>16:01</td>
 		<td>07/08/2021</td>
-		<td class='small' id='success-button'><button/>All Done</td>
-		<td class='small' id='error-button'><button/>X</td>		
+		<td class='small'><button id='success-button'/>All Done</td>
+		<td class='small'><button id='error-button'/>X</td>		
 	</tr>
 	<tr id='break'><td colspan='8'></td></tr>	
 	<tr>
@@ -40,8 +102,8 @@
 		<td class='medication'><b>Para</b>cetamol</td>
 		<td>200mg</td>
 		<td>120</td>
-		<td class='small' id='success-button'><button/>Done</td>
-		<td class='small' id='error-button'><button/>X</td>		
+		<td class='small'><button id='success-button'/>Done</td>
+		<td class='small'><button id='error-button'/>X</td>		
 	</tr>
 	<tr>
 		<td></td>
@@ -50,6 +112,8 @@
 		<td class='medication'><b>Glut</b>ameal</td>
 		<td>200mg</td>
 		<td>120</td>
+		<td class='small'><button id='success-button'/>Done</td>
+		<td class='small'><button id='error-button'/>X</td>				
 	</tr>	
 </table>
 
