@@ -5,9 +5,10 @@
         <title>Document</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <script src="{{ url_for('static', filename='javascript/index.js') }}"></script>
         {% block head %}{% endblock %}
     </head>
-    <body>
+    <body onload='OnLoad()'>
       {% block body %}{% endblock %}
     </body>
 </html>

@@ -6,8 +6,6 @@ import webbrowser
 
 app = Flask(__name__)
 
-
-
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 # db = SQLAlchemy(app)
 
@@ -47,7 +45,8 @@ def index():
 
 @app.route('/delete/<int:id>')
 def delete(id):
-	task_to_delete = Todo.query.get_or_404(id)
+	task_to_delete = Todo.quem
+	y.get_or_404(id)
 
 	try:
 		db.session.delete(task_to_delete)
