@@ -51,14 +51,26 @@ h1 {
 .error-options {
 	display: none;
 }
-
-#table-head td {
-	font-weight: bold;
-	background-color: lightblue;
-}
-
 .medication {
 	text-align: left;
+}
+.bleu {
+	background: lightblue;
+}
+.rouge {
+	background: red;
+}
+.orange {
+	display: none;
+	background: orange;
+}
+.requested {
+	font-size: 1.5vh;
+	font-style: italic;
+	font-weight: bold;
+}
+#table-head td {
+	font-weight: bold;
 }
 #first-row td {
 	border: 0px;

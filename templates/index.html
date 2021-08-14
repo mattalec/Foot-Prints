@@ -23,50 +23,49 @@
 
 			<th id='footprints' class='col-change' colspan="10"><h1>Foot-Prints</h1></th>
 			<tr id='table-head'>
-				<td class='smaller' id='dob'>Item no.</td>
-				<td class='big' id='name'>Medication</td>
-				<td class='small' id='dosage'>Dosage</td>
-				<td class='small' id='quantity'>Quantity</td>
-				<td class='small' id='success'>Done</td>
-				<td class='small' id='error'>Error</td>
-				<td class='smaller error-options'>early</td>
-				<td class='smaller error-options'>never requested</td>
-				<td class='smaller error-options'>not pt</td>
-				<td class='smaller error-options'>dose never requested</td>
-				<td class='smaller error-options'>adverse reactions</td>
+				<td class='smaller bleu' id='dob'>Item no.</td>
+				<td class='big bleu' id='name'>Medication</td>
+				<td class='smaller bleu' id='dosage'>Dosage</td>
+				<td class='smaller bleu' id='quantity'>Quantity</td>
+				<td class='smaller bleu' id='success'>Done</td>
+				<td class='smaller rouge' id='error'>Error</td>
+				<td class='smaller orange'>early</td>
+				<td class='smaller orange'>never requested</td>
+				<td class='smaller orange'>not pt</td>
+				<td class='smaller orange'>adverse reactions</td>
 			</tr>
 
 			{% for script in scripts %}
 
 				{# if first new name #}
 				{% if loop.index0 == 0 %}
-					<tr id='break-blank' ><td class='col-change' colspan='10'></td></tr>
+					<tr id='break-blank' ><td class='requested' colspan='6'>Requested: {{ script[1].date }}</td></tr>
 					<tr id='break'><td class='col-change' colspan='10'></td></tr>
 					<tr id='first-row'>
-						<td>{{script[1].dob}}</td>
-						<td>{{script[1].full_name}}</td>
-						<td class='email' colspan='2'>{{script[1].email}}</td>
+						<td class='smaller'>{{script[1].dob}}</td>
+						<td class='big'>{{script[1].full_name}}</td>
+						<td class='email smaller' colspan='2'>{{script[1].email}}</td>
 						<!--<td>Requested: {{script[1].date}}</td>-->
-						<td class='small'><div class='success-button'><input type='button' class='success-button' value='All Done'/></div></td>
-						<td class='small'><input type='button' class='error-button' onclick='ErrButton()' value='X'></td>
-						<td class='smaller error-options'><input type='checkbox'></td>
-						<td class='smaller error-options'><input type='checkbox'></td>
-						<td class='smaller error-options'><input type='checkbox'></td>
-						<td class='smaller error-options'><input type='checkbox'></td>
+						<td class='smaller'><div class='success-button'><input type='button' class='success-button' onclick='AllDone()' value='All Done'/></div></td>
+						<td class='smaller'><input type='button' class='error-button' onclick='AllError()' value='X'></td>
+						<td class='error-options smaller'><input type='checkbox'></td>
+						<td class='error-options smaller'><input type='checkbox'></td>
+						<td class='error-options smaller'><input type='checkbox'></td>
+						<td class='error-options smaller'><input type='checkbox'></td>
 					</tr>
 					<tr id='break'><td class='col-change' colspan='10'></td></tr>
 
 				{% elif (script[1].full_name != scripts[script[0]-1][1].full_name) or (script[1].dob != scripts[script[0]-1][1].dob) %}
 				{# if not first new name #}
-					<tr id='break-blank'><td class='col-change' colspan='10'></td></tr>
+					<tr id='break-blank'><td class='requested' colspan='6'>Requested: {{ script[1].date }}</td></tr>
 					<tr id='break'><td class='col-change' colspan='10'></td></tr>	
 					<tr id='first-row'>
 						<td>{{script[1].dob}}</td>
 						<td>{{script[1].full_name}}</td>
 						<td class='email' colspan='2'>{{script[1].email}}</td>
 						<!--<td>Requested: {{script[1].date}}</td>-->
-						<td class='small'><div class='success-button'><input type='button' class='success-button' value='All Done'/></div></td>
-						<td class='small'><input type='button' class='error-button' value='X'></td>
+						<td class='small'><div class='success-button'><input type='button' class='success-button' onclick='AllDone()' value='All Done'/></div></td>
+						<td class='small'><input type='button' class='error-button' onclick='AllError()' value='X'></td>
 						<td class='smaller error-options'><input type='checkbox'></td>
 						<td class='smaller error-options'><input type='checkbox'></td>
 						<td class='smaller error-options'><input type='checkbox'></td>
@@ -83,12 +82,12 @@
 					<td class='medication'>{{ script[1].medication }}</td>
 					<td>{{ script[1].dosage }}</td>
 					<td>{{ script[1].quantity }}</td>
-					<td class='small'><input type='button' class='success-button' value='Done'/></td>
-					<td class='small'><input type='button' class='error-button' value='X'/></td>
-					<td class='smaller error-options'><input type='checkbox'></td>
-					<td class='smaller error-options'><input type='checkbox'></td>
-					<td class='smaller error-options'><input type='checkbox'></td>
-					<td class='smaller error-options'><input type='checkbox'></td>
+					<td class='small'><input type='button' class='success-button' onclick='Done({{ script[0] }})' value='Done'/></td>
+					<td class='small'><input type='button' class='error-button' onclick='Error({{ script[0] }})' value='X'/></td>
+					<td class='smaller error-options error-option-{{ script[0] }}'><input type='checkbox'></td>
+					<td class='smaller error-options error-option-{{ script[0] }}'><input type='checkbox'></td>
+					<td class='smaller error-options error-option-{{ script[0] }}'><input type='checkbox'></td>
+					<td class='smaller error-options error-option-{{ script[0] }}'><input type='checkbox'></td>
 				</tr>
 
 		{% endfor %}
