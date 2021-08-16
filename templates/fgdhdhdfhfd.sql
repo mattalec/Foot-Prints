@@ -39,15 +39,15 @@
 
 				{# if first new name #}
 				{% if loop.index0 == 0 %}
-					<tr id='break-blank'  class='{{ script[1].pt_no }} stay'><td class='requested' colspan='6'>Requested: {{ script[1].date }}</td></tr>
-					<tr id='break' class='{{ script[1].pt_no }} stay'><td class='col-change' colspan='10'></td></tr>
-					<tr id='first-row' class='{{ script[1].pt_no }} stay'>
+					<tr id='break-blank'  class='{{ script[1].pt_no }}'><td class='requested' colspan='6'>Requested: {{ script[1].date }}</td></tr>
+					<tr id='break' class='{{ script[1].pt_no }}'><td class='col-change' colspan='10'></td></tr>
+					<tr id='first-row' class='{{ script[1].pt_no }}'>
 						<td class='smaller'>{{script[1].dob}}</td>
 						<td class='big'>{{script[1].full_name}}</td>
 						<td class='email smaller' colspan='2'>{{script[1].email}}</td>
 						<!--<td>Requested: {{script[1].date}}</td>-->
-						<td class='smaller'><div class='success-button'><input type='button' class='main-done success-button' id='all-success-button-{{ script[1].pt_no }}' onclick='AllDone({{ script[1].pt_no }})' value='All Done'/></div></td>
-						<td class='smaller'><input type='button' class='main-err error-button' id='all-error-button-{{ script[1].pt_no }}' onclick='AllError({{ script[1].pt_no }})' value='X'></td>
+						<td class='smaller'><div class='success-button'><input type='button' class='success-button' id='all-success-button-{{ script[1].pt_no }}' onclick='AllDone({{ script[1].pt_no }})' value='All Done'/></div></td>
+						<td class='smaller'><input type='button' class='error-button' id='all-error-button-{{ script[1].pt_no }}' onclick='AllError({{ script[1].pt_no }})' value='X'></td>
 						<td class='error-options smaller all-error-options-{{ script[1].pt_no }}'><input type='checkbox'></td>
 						<td class='error-options smaller all-error-options-{{ script[1].pt_no }}'><input type='checkbox'></td>
 						<td class='error-options smaller all-error-options-{{ script[1].pt_no }}'><input type='checkbox'></td>
@@ -57,15 +57,15 @@
 
 				{% elif (script[1].full_name != scripts[script[0]-1][1].full_name) or (script[1].dob != scripts[script[0]-1][1].dob) %}
 				{# if not first new name #}
-					<tr id='break-blank' class='{{ script[1].pt_no }} stay'><td class='requested' colspan='6'>Requested: {{ script[1].date }}</td></tr>
-					<tr id='break' class='{{ script[1].pt_no }} stay'><td class='col-change' colspan='10'></td></tr>	
-					<tr id='first-row' class='{{ script[1].pt_no }} stay'>
+					<tr id='break-blank' class='{{ script[1].pt_no }}'><td class='requested' colspan='6'>Requested: {{ script[1].date }}</td></tr>
+					<tr id='break' class='{{ script[1].pt_no }}'><td class='col-change' colspan='10'></td></tr>	
+					<tr id='first-row' class='{{ script[1].pt_no }}'>
 						<td>{{script[1].dob}}</td>
 						<td>{{script[1].full_name}}</td>
 						<td class='email' colspan='2'>{{script[1].email}}</td>
 						<!--<td>Requested: {{script[1].date}}</td>-->
-						<td class='small'><div class='success-button'><input type='button' class='main-done success-button' id='all-success-button-{{ script[1].pt_no }}' onclick='AllDone({{ script[1].pt_no }})' value='All Done'/></div></td>
-						<td class='small'><input type='button' class='main-err error-button' id='all-error-button-{{ script[1].pt_no }}' onclick='AllError({{ script[1].pt_no }})' value='X'></td>
+						<td class='small'><div class='success-button'><input type='button' class='success-button' id='all-success-button-{{ script[1].pt_no }}' onclick='AllDone({{ script[1].pt_no }})' value='All Done'/></div></td>
+						<td class='small'><input type='button' class='error-button' id='all-error-button-{{ script[1].pt_no }}' onclick='AllError({{ script[1].pt_no }})' value='X'></td>
 						<td class='smaller error-options all-error-options-{{ script[1].pt_no }}'><input type='checkbox'></td>
 						<td class='smaller error-options all-error-options-{{ script[1].pt_no }}'><input type='checkbox'></td>
 						<td class='smaller error-options all-error-options-{{ script[1].pt_no }}'><input type='checkbox'></td>
