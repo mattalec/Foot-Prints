@@ -48,10 +48,10 @@
 						<!--<td>Requested: {{script[1].date}}</td>-->
 						<td class='smaller'><div class='success-button'><input type='button' class='main-done success-button' id='all-success-button-{{ script[1].pt_no }}' onclick='AllDone({{ script[1].pt_no }})' value='All Done'/></div></td>
 						<td class='smaller'><input type='button' class='main-err error-button' id='all-error-button-{{ script[1].pt_no }}' onclick='AllError({{ script[1].pt_no }})' value='X'></td>
-						<td class='error-options smaller all-error-options-{{ script[1].pt_no }}'><input type='checkbox'></td>
-						<td class='error-options smaller all-error-options-{{ script[1].pt_no }}'><input type='checkbox'></td>
-						<td class='error-options smaller all-error-options-{{ script[1].pt_no }}'><input type='checkbox'></td>
-						<td class='error-options smaller all-error-options-{{ script[1].pt_no }}'><input type='checkbox'></td>
+						<td class='error-options smaller all-error-options-{{ script[1].pt_no }}'><input type='checkbox' class='pt-check-{{ script[1].pt_no }}' onclick='MainCheck({{ script[1].pt_no }}, 1)'></td>
+						<td class='error-options smaller all-error-options-{{ script[1].pt_no }}'><input type='checkbox' class='pt-check-{{ script[1].pt_no }}' onclick='MainCheck({{ script[1].pt_no }}, 2)'></td>
+						<td class='error-options smaller all-error-options-{{ script[1].pt_no }}'><input type='checkbox' class='pt-check-{{ script[1].pt_no }}' onclick='MainCheck({{ script[1].pt_no }}, 3)'></td>
+						<td class='error-options smaller all-error-options-{{ script[1].pt_no }}'><input type='checkbox' class='pt-check-{{ script[1].pt_no }}' onclick='MainCheck({{ script[1].pt_no }}, 4)'></td>
 					</tr>
 					<tr id='break'><td class='col-change' colspan='10'></td></tr>
 
@@ -66,10 +66,10 @@
 						<!--<td>Requested: {{script[1].date}}</td>-->
 						<td class='small'><div class='success-button'><input type='button' class='main-done success-button' id='all-success-button-{{ script[1].pt_no }}' onclick='AllDone({{ script[1].pt_no }})' value='All Done'/></div></td>
 						<td class='small'><input type='button' class='main-err error-button' id='all-error-button-{{ script[1].pt_no }}' onclick='AllError({{ script[1].pt_no }})' value='X'></td>
-						<td class='smaller error-options all-error-options-{{ script[1].pt_no }}'><input type='checkbox'></td>
-						<td class='smaller error-options all-error-options-{{ script[1].pt_no }}'><input type='checkbox'></td>
-						<td class='smaller error-options all-error-options-{{ script[1].pt_no }}'><input type='checkbox'></td>
-						<td class='smaller error-options all-error-options-{{ script[1].pt_no }}'><input type='checkbox'></td>					
+						<td class='smaller error-options all-error-options-{{ script[1].pt_no }}'><input type='checkbox' class='pt-check-{{ script[1].pt_no }}' id='early-pt-check-{{ script[1].pt_no }}' onclick='MainCheck({{ script[1].pt_no }}, 1)'></td>
+						<td class='smaller error-options all-error-options-{{ script[1].pt_no }}'><input type='checkbox' class='pt-check-{{ script[1].pt_no }}' id='never-pt-check-{{ script[1].pt_no }}' onclick='MainCheck({{ script[1].pt_no }}, 2)'></td>
+						<td class='smaller error-options all-error-options-{{ script[1].pt_no }}'><input type='checkbox' class='pt-check-{{ script[1].pt_no }}' id='not-pt-check-{{ script[1].pt_no }}' onclick='MainCheck({{ script[1].pt_no }}, 3)'></td>
+						<td class='smaller error-options all-error-options-{{ script[1].pt_no }}'><input type='checkbox' class='pt-check-{{ script[1].pt_no }}' id='adverse-pt-check-{{ script[1].pt_no }}' onclick='MainCheck({{ script[1].pt_no }}, 4)'></td>					
 					</tr>
 					<tr id='break'><td class='col-change' colspan='10'></td></tr>
 					
@@ -77,17 +77,17 @@
 				
 
 				{# load prescriptions #}
-				<tr class='{{ script[1].pt_no }}'>
+				<tr class='{{ script[1].pt_no }} script'>
 					<td class='smaller'>{{ script[1].pt_ind + 1 }})</td>
 					<td class='medication'>{{ script[1].medication }}</td>
 					<td>{{ script[1].dosage }}</td>
 					<td>{{ script[1].quantity }}</td>
 					<td class='small'><input type='button' class='success-button success-pt-{{ script[1].pt_no }}' id='success-button-{{ script[0] }}' onclick='Done({{ script[0] }})' value='Done'/></td>
 					<td class='small'><input type='button' class='error-button error-pt-{{ script[1].pt_no }}' id='error-button-{{ script[0] }}' onclick='Error({{ script[0] }})' value='X'/></td>
-					<td class='smaller error-options error-option-{{ script[0] }}'><input id='checkbox-1-{{ script[0] }}' type='checkbox'></td>
-					<td class='smaller error-options error-option-{{ script[0] }}'><input id='checkbox-1-{{ script[0] }}' type='checkbox'></td>
-					<td class='smaller error-options error-option-{{ script[0] }}'><input id='checkbox-1-{{ script[0] }}' type='checkbox'></td>
-					<td class='smaller error-options error-option-{{ script[0] }}'><input id='checkbox-1-{{ script[0] }}' type='checkbox'></td>
+					<td class='smaller error-options error-option-{{ script[0] }} script-error-option-{{ script[1].pt_no }}'><input id='checkbox-1-{{ script[0] }}' type='checkbox' class='check-{{ script[0] }} check-pt-{{ script[1].pt_no }}' id='early-check-id-{{ script[0] }}' onclick='CheckCheck({{ script[0] }}, 1)'></td>
+					<td class='smaller error-options error-option-{{ script[0] }} script-error-option-{{ script[1].pt_no }}'><input id='checkbox-1-{{ script[0] }}' type='checkbox' class='check-{{ script[0] }} check-pt-{{ script[1].pt_no }}' id='never-check-id-{{ script[0] }}' onclick='CheckCheck({{ script[0] }}, 2)'></td>
+					<td class='smaller error-options error-option-{{ script[0] }} script-error-option-{{ script[1].pt_no }}'><input id='checkbox-1-{{ script[0] }}' type='checkbox' class='check-{{ script[0] }} check-pt-{{ script[1].pt_no }}' id='not-check-id-{{ script[0] }}' onclick='CheckCheck({{ script[0] }}, 3)'></td>
+					<td class='smaller error-options error-option-{{ script[0] }} script-error-option-{{ script[1].pt_no }}'><input id='checkbox-1-{{ script[0] }}' type='checkbox' class='check-{{ script[0] }} check-pt-{{ script[1].pt_no }}' id='adverse-check-id-{{ script[0] }}' onclick='CheckCheck({{ script[0] }}, 4)'></td>
 				</tr>
 
 		{% endfor %}
