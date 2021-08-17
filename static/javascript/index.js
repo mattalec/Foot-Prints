@@ -1,5 +1,5 @@
 function OnLoad() {
-    // generate all event listeners for double click
+    // generate event listeners on All Done and All Error Buttons on double click
     var x = document.getElementsByClassName('main-done');
     var y = document.getElementsByClassName('main-err');
 
@@ -10,40 +10,21 @@ function OnLoad() {
         document.getElementById(y.item(i).id).addEventListener("dblclick", function() { ShowHideScripts(x_id); }, false);
     }
 
-    ShowAll();
-}
-
-function AllError(pt_no) {
-    console.log('ErrButton()');
-    // making all error-options visible and elongating all relevent rows
-    var pt_no = pt_no.toString();
-    var x = document.getElementsByClassName('success-pt-'+pt_no);
-    for (var i = 0; i < x.length; i++) {
-        x.item(i).style.backgroundColor = 'white';
-    }
-    var y = document.getElementsByClassName('all-error-options-'+pt_no);
-    for (var i = 0; i < y.length; i++) {
-        y.item(i).style.display = 'table-cell';
-    }
-    if (pt_no != 0) {
-        var z = document.getElementsByClassName('error-option-'+pt_no);
-        for (var i = 0; i < z.length; i++) {
-            z.item(i).style.display = 'table-cell';
-        }
-    }
-    document.getElementById('all-success-button-'+pt_no).style.backgroundColor = 'white';
-    document.getElementById('all-error-button-'+pt_no).style.backgroundColor = 'red';
-    var z = document.getElementsByClassName('error-pt-'+pt_no);
-    for (var i = 0; i < z.length; i++) {
-        z.item(i).style.backgroundColor = 'red';
-    }
-    ShowHideOrange();
+    // ShowAll();
 }
 
 function AllDone(pt_no) {
     console.log('AllDone()');
     // undoing the above
-    var pt_no = pt_no.toString();
+    var pt_no = pt_no;
+    var x = document.getElementsByClassName('check-pt-'+pt_no);
+    for (var i = 0; i < x.length; i++) {
+        x.item(i).checked = false;
+    }
+    var x = document.getElementsByClassName('pt-check-'+pt_no);
+    for (var i = 0; i < x.length; i++) {
+        x.item(i).checked = false;
+    }    
     var x = document.getElementsByClassName('error-pt-'+pt_no);
     for (var i = 0; i < x.length; i++) {
         x.item(i).style.backgroundColor = 'white';
@@ -54,105 +35,68 @@ function AllDone(pt_no) {
     }
     document.getElementById('all-success-button-'+pt_no).style.backgroundColor = 'green';
     document.getElementById('all-error-button-'+pt_no).style.backgroundColor = 'white';
-    var z = document.getElementsByClassName('all-error-options-'+pt_no);
-    for (var i = 0; i < z.length; i++) {
-        z.item(i).style.display = 'none';
-    }
-    // hide all scripts
-    HideScripts(pt_no);    
+    ShowHideClass('all-error-options-'+pt_no, false, 'row');
+    HideScripts(pt_no);
     ShowHideOrange();
 }
 
-function ShowHideScripts(pt_no) {
-    var z = document.getElementsByClassName(pt_no);
-
-    var ids = ['break-blank','break','first-row'];
-    var hide = false;
-    
-    for (var i = 0; i < z.length; i++) {
-        if ((z.item(i).style.display == 'table-row') && !(ids.includes(z.item(i).id))) {
-            hide = true;
-            break;
-        }
-    }
-
-    if (hide) {HideScripts(pt_no);} 
-    else {
-        var x = document.getElementsByClassName(pt_no);
-        for (var i = 0; i < x.length; i++) {
-            x.item(i).style.display = 'table-row';
-        }
-    }
-}
-
-function HideScripts(pt_no) {
-    var x = document.getElementsByClassName(pt_no);
+function AllError(pt_no) {
+    console.log('ErrButton()');
+    // making all error-options visible and elongating all relevent rows
+    var pt_no = pt_no.toString();
+    // make colour changed from green to white and from white to red
+    var x = document.getElementsByClassName('success-pt-'+pt_no);
     for (var i = 0; i < x.length; i++) {
-        x.item(i).style.display = 'none';
+        x.item(i).style.backgroundColor = 'white';
     }
-    var y = document.getElementsByClassName('stay');
-    for (var i = 0; i < y.length; i++) {
-        y.item(i).style.display = 'table-row';
+    document.getElementById('all-success-button-'+pt_no).style.backgroundColor = 'white';
+    document.getElementById('all-error-button-'+pt_no).style.backgroundColor = 'red';
+    var z = document.getElementsByClassName('error-pt-'+pt_no);
+    for (var i = 0; i < z.length; i++) {
+        z.item(i).style.backgroundColor = 'red';
     }
+
+    // make sure all errors are visible
+    ShowHideClass('script-error-option-'+pt_no, true, 'cell');
+
+    // show error options and orange header
+    ShowHideClass('all-error-options-'+pt_no, true, 'cell');
+    if (pt_no != 0) {
+        ShowHideClass('error-option-'+pt_no, true, 'cell');
+    }
+    ShowHideOrange();
 }
 
-function Done(ind) {
+function Done(ind, pt_no) {
     console.log('Done');
     var ind = ind.toString();
-    var y = document.getElementsByClassName('error-option-'+ind);
-    for (var i = 0; i < y.length; i++) {
-        y.item(i).style.display = 'none';
+    var x = document.getElementsByClassName('check-'+ind);
+    for (var i = 0; i < x.length; i++) {
+        x.item(i).checked = false;
     }
     document.getElementById('error-button-'+ind).style.backgroundColor = 'white';
     document.getElementById('success-button-'+ind).style.backgroundColor = 'green';
+    ShowHideClass('error-option-'+ind, false, 'cell');
     ShowHideOrange();
+
+    // check if all done, if so 'AllDone'
+    var y = document.getElementsByClassName('success-pt-'+pt_no);
+    for (var i = 0; i < y.length; i++) {
+        if (y.item(i).style.backgroundColor != 'green') {break;} else {AllDone(pt_no);}
+    }
 }
 
-function Error(ind) {
+function Error(ind, pt_no) {
     console.log('Error');
     var ind = ind.toString();
-    var y = document.getElementsByClassName('error-option-'+ind);
-    for (var i = 0; i < y.length; i++) {
-        y.item(i).style.display = 'table-cell';
-    }
     document.getElementById('error-button-'+ind).style.backgroundColor = 'red';
     document.getElementById('success-button-'+ind).style.backgroundColor = 'white';
     ShowHideOrange();
+    ShowHideClass('error-option-'+ind, true, 'cell');    
 }
 
-function ShowHideOrange() {
-    var y = document.getElementsByClassName('error-options');
-    var option_show = false;
-    for (var i = 0; i < y.length; i++)
-    {
-        if (y.item(i).style.display == 'table-cell') {
-            option_show = true;
-            break;
-        }
-    }
-    if (option_show == true) {
-        var z = document.getElementsByClassName('orange');
-        for (var i = 0; i < z.length; i++) {
-            z.item(i).style.display = 'table-cell';
-        }
-        var x = document.getElementsByClassName('col-change');
-        for (var i = 0; i < x.length; i++) {
-            x.item(i).colSpan = '10';
-        }
-    } else {
-        var z = document.getElementsByClassName('orange');
-        for (var i = 0; i < z.length; i++) {
-            z.item(i).style.display = 'none';
-        }
-        var x = document.getElementsByClassName('col-change');
-        for (var i = 0; i < x.length; i++) {
-            x.item(i).colSpan = '6';
-        }
-    }
-}
-
-function CheckCheck(ind, type) {
-    console.log('CheckCheck(pt_no, type): '+ind.toString()+', '+type.toString());
+function CheckCheck(ind, pt_no, type) {
+    console.log('CheckCheck(ind, pt_no, type): '+ind.toString()+', '+pt_no.toString()+', '+type.toString());
     var ind = ind.toString();
     // uncheck all in row but the one just checked
     var x = document.getElementsByClassName('check-'+ind);
@@ -161,7 +105,10 @@ function CheckCheck(ind, type) {
             x.item(i).checked = false;
         }
     }
-
+    var y = document.getElementsByClassName('pt-check-'+pt_no);
+    for (var i = 0; i < y.length; i++) {
+        y.item(i).checked = false;
+    }
 }
 
 function MainCheck(pt_no, type) {
@@ -191,16 +138,68 @@ function MainCheck(pt_no, type) {
     HideScripts(pt_no);
 }
 
+function ShowHideOrange() {
+    // check if an orange error type is visible, if so, keep orange header
+    
+    // var y = document.getElementsByClassName('error-options');
+    var y = document.getElementsByClassName('main-done');
+    var cols;
+    var option_show = false;
+
+    for (var i = 0; i < y.length; i++)
+    {
+        console.log('checkbox '+i+' : '+y.item(i).style.display);
+        if (y.item(i).style.backgroundColor != 'green') {
+            option_show = true;
+            break;
+        }
+    }
+    if (option_show == true) { cols = '10'; } else { cols = '6'; }
+
+    ShowHideClass('orange', option_show, 'cell');
+    var x = document.getElementsByClassName('col-change');
+    for (var i = 0; i < x.length; i++) {
+        x.item(i).colSpan = cols;
+    }
+}
+
+function ShowHideScripts(pt_no) {
+    
+    var z = document.getElementsByClassName(pt_no);
+    var ids = ['break-blank','break','first-row'];
+    var hide = false;
+    
+    for (var i = 0; i < z.length; i++) {
+        if ((z.item(i).style.display == 'table-row') && !(ids.includes(z.item(i).id))) {
+            hide = true;
+            break;
+        }
+    }
+
+    if (hide) {HideScripts(pt_no);} 
+    else {
+        ShowHideClass(pt_no, true, 'row');
+    }
+}
+
+function HideScripts(pt_no) {
+    ShowHideClass(pt_no, false, 'row');
+    ShowHideClass('stay', true, 'row');
+}
+
+function ShowHideClass(classname, show, obj_type) {
+    var showstr = 'table-'+obj_type;
+    if (!show) {showstr = 'none';};
+
+    var x = document.getElementsByClassName(classname);
+    for (var i = 0; i < x.length; i++) {
+        x.item(i).style.display = showstr;
+    }
+}
+
 function ShowAll() {
     console.log('ShowAll()');
-    var x = document.getElementsByClassName('error-options');
-    for (var i = 0; i < x.length; i++) {
-        x.item(i).style.display = 'table-cell';
-        console.log(i);
-    }
-    var y = document.getElementsByClassName('script');
-    for (var i = 0; i < y.length; i++) {
-        y.item(i).style.display = 'table-row';
-    }
+    ShowHideClass('error-options', true, 'cell');
+    ShowHideClass('script', true, 'row');
     ShowHideOrange();
 }
