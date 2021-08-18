@@ -23,12 +23,10 @@ h1 {
 	height: 100%;
 	width: 10vw;
 }
-
 .smaller {
 	height: 100%;
 	width: 5vw;
 }
-
 .big {
 	height: 100%;
 	width: 20vw;
@@ -42,7 +40,6 @@ h1 {
 	width: 100%;
 	background-color: white;
 }
-
 .error-options {
 	display: none;
 }
@@ -59,11 +56,12 @@ h1 {
 	display: none;
 	background: orange;
 }
-.requested {
+.col-change {
 	font-size: 1.5vh;
 	font-style: italic;
 	font-weight: bold;
 }
+
 #table-head td {
 	font-weight: bold;
 }

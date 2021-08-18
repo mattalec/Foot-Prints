@@ -10,7 +10,11 @@ function OnLoad() {
         document.getElementById(y.item(i).id).addEventListener("dblclick", function() { ShowHideScripts(x_id); }, false);
     }
 
-    // ShowAll();
+    ShowAll();
+}
+
+function print() {
+    window.print();
 }
 
 function AllDone(pt_no) {
@@ -78,11 +82,23 @@ function Done(ind, pt_no) {
     document.getElementById('success-button-'+ind).style.backgroundColor = 'green';
     ShowHideClass('error-option-'+ind, false, 'cell');
     ShowHideOrange();
+    CheckAllDone(pt_no);
+}
 
+function CheckAllDone(pt_no) {
     // check if all done, if so 'AllDone'
     var y = document.getElementsByClassName('success-pt-'+pt_no);
+    var all_green = true;
     for (var i = 0; i < y.length; i++) {
-        if (y.item(i).style.backgroundColor != 'green') {break;} else {AllDone(pt_no);}
+        if (y.item(i).style.backgroundColor != 'green') {
+            all_green = false;
+            break;
+        }
+    }
+    if (all_green) {
+        AllDone(pt_no);
+    } else {
+        document.getElementById('all-success-button-'+pt_no).style.backgroundColor = 'white';
     }
 }
 
@@ -92,7 +108,8 @@ function Error(ind, pt_no) {
     document.getElementById('error-button-'+ind).style.backgroundColor = 'red';
     document.getElementById('success-button-'+ind).style.backgroundColor = 'white';
     ShowHideOrange();
-    ShowHideClass('error-option-'+ind, true, 'cell');    
+    ShowHideClass('error-option-'+ind, true, 'cell');
+    CheckAllDone(pt_no);
 }
 
 function CheckCheck(ind, pt_no, type) {

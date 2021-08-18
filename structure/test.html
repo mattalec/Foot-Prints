@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <p id="ignorePDF">don't print this to pdf</p>
+    <div>
+      <p><font size="3" color="red">print this to pdf</font></p>
+    </div>
+    
+    <script>
+        var doc = new jsPDF();          
+        var elementHandler = {
+        '#ignorePDF': function (element, renderer) {
+            return true;
+        }
+        };
+        var source = window.document.getElementsByTagName("body")[0];
+        doc.fromHTML(
+            source,
+            15,
+            15,
+            {
+            'width': 180,'elementHandlers': elementHandler
+            });
+
+        doc.output("dataurlnewwindow");
+    </script>
+</body>
+</html>
