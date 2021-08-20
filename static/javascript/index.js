@@ -1,5 +1,5 @@
 function OnLoad() {
-    // generate event listeners on All Done and All Error Buttons on double click
+    // generate event listeners on All Done and All Error Buttons for double click
     var x = document.getElementsByClassName('main-done');
     var y = document.getElementsByClassName('main-err');
 
@@ -10,35 +10,43 @@ function OnLoad() {
         document.getElementById(y.item(i).id).addEventListener("dblclick", function() { ShowHideScripts(x_id); }, false);
     }
 
-    ShowAll();
+    // ShowAll();
 }
 
 function print() {
+    // print page
     window.print();
+}
+
+function CheckClass(check, classes) {
+    // check: Boolean, classes: [''], check or uncheck classes
+    for (var i = 0; i < classes.length; i++) {
+        var x = document.getElementsByClassName(classes[i]);
+        console.log(classes[i]);
+        for (var j = 0; j < x.length; j++) {
+            x.item(j).checked = check;
+        }    
+    }
+}
+
+function ColorClass(color, classname) {
+    // color: '', classname='', color class
+    var x = document.getElementsByClassName(classname);
+    for (var i = 0; i < x.length; i++) {
+        x.item(i).style.backgroundColor = color;
+    }
 }
 
 function AllDone(pt_no) {
     console.log('AllDone()');
-    // undoing the above
-    var pt_no = pt_no;
-    var x = document.getElementsByClassName('check-pt-'+pt_no);
-    for (var i = 0; i < x.length; i++) {
-        x.item(i).checked = false;
-    }
-    var x = document.getElementsByClassName('pt-check-'+pt_no);
-    for (var i = 0; i < x.length; i++) {
-        x.item(i).checked = false;
-    }    
-    var x = document.getElementsByClassName('error-pt-'+pt_no);
-    for (var i = 0; i < x.length; i++) {
-        x.item(i).style.backgroundColor = 'white';
-    }
-    var y = document.getElementsByClassName('success-pt-'+pt_no);
-    for (var i = 0; i < y.length; i++) {
-        y.item(i).style.backgroundColor = 'green';
-    }
+    // 1) uncheck all pt errors
+    CheckClass(false, ['check-pt-'+pt_no,'pt-check-'+pt_no]);
+    // 2) uncolor all pt errors, color all pt done. Repeat for main buttons
+    ColorClass('white', 'error-pt-'+pt_no);
+    ColorClass('green', 'success-pt-'+pt_no);
     document.getElementById('all-success-button-'+pt_no).style.backgroundColor = 'green';
     document.getElementById('all-error-button-'+pt_no).style.backgroundColor = 'white';
+    // 3) hide error options, hide scripts, showhide orange column names
     ShowHideClass('all-error-options-'+pt_no, false, 'row');
     HideScripts(pt_no);
     ShowHideOrange();
@@ -46,99 +54,85 @@ function AllDone(pt_no) {
 
 function AllError(pt_no) {
     console.log('ErrButton()');
-    // making all error-options visible and elongating all relevent rows
-    var pt_no = pt_no.toString();
-    // make colour changed from green to white and from white to red
-    var x = document.getElementsByClassName('success-pt-'+pt_no);
-    for (var i = 0; i < x.length; i++) {
-        x.item(i).style.backgroundColor = 'white';
-    }
+    // 1) uncolor all pt done, color all pt error buttons, repeat for main buttons
+    ColorClass('white','success-pt-'+pt_no);
+    ColorClass('red','error-pt-'+pt_no);
     document.getElementById('all-success-button-'+pt_no).style.backgroundColor = 'white';
     document.getElementById('all-error-button-'+pt_no).style.backgroundColor = 'red';
-    var z = document.getElementsByClassName('error-pt-'+pt_no);
-    for (var i = 0; i < z.length; i++) {
-        z.item(i).style.backgroundColor = 'red';
-    }
-
-    // make sure all errors are visible
+    // 2) show all error options, main error options and show orange column names
     ShowHideClass('script-error-option-'+pt_no, true, 'cell');
-
-    // show error options and orange header
     ShowHideClass('all-error-options-'+pt_no, true, 'cell');
-    if (pt_no != 0) {
-        ShowHideClass('error-option-'+pt_no, true, 'cell');
-    }
     ShowHideOrange();
 }
 
 function Done(ind, pt_no) {
     console.log('Done');
-    var ind = ind.toString();
-    var x = document.getElementsByClassName('check-'+ind);
-    for (var i = 0; i < x.length; i++) {
-        x.item(i).checked = false;
-    }
+    // 1) uncheck all pt error for row ind
+    CheckClass(false, ['check-'+ind]);
+    // 2) recolor buttons
     document.getElementById('error-button-'+ind).style.backgroundColor = 'white';
     document.getElementById('success-button-'+ind).style.backgroundColor = 'green';
+    // 3) hide error options and showhide header
     ShowHideClass('error-option-'+ind, false, 'cell');
     ShowHideOrange();
-    CheckAllDone(pt_no);
+    // 4) check if all done, if so call AllDone()
+    CheckAll(pt_no);
 }
 
-function CheckAllDone(pt_no) {
-    // check if all done, if so 'AllDone'
+function CheckAll(pt_no) {
+    // check done column for pt_no, if all green => AllDone(), else if all red => AllError() else nothing
     var y = document.getElementsByClassName('success-pt-'+pt_no);
-    var all_green = true;
+    var all_green, all_red = true;
     for (var i = 0; i < y.length; i++) {
         if (y.item(i).style.backgroundColor != 'green') {
             all_green = false;
-            break;
+        } else {
+            all_red = false;
         }
     }
-    if (all_green) {
-        AllDone(pt_no);
-    } else {
+    if (all_green) {AllDone(pt_no);} else {
         document.getElementById('all-success-button-'+pt_no).style.backgroundColor = 'white';
     }
+    if (all_red) {AllError(pt_no);} else {
+        document.getElementById('all-error-button-'+pt_no).style.backgroundColor = 'white';
+    }    
 }
 
 function Error(ind, pt_no) {
     console.log('Error');
-    var ind = ind.toString();
+    // 1) recolor buttons
     document.getElementById('error-button-'+ind).style.backgroundColor = 'red';
     document.getElementById('success-button-'+ind).style.backgroundColor = 'white';
-    ShowHideOrange();
+    // 2) show error options for that row
     ShowHideClass('error-option-'+ind, true, 'cell');
-    CheckAllDone(pt_no);
+    ShowHideOrange();
+    // 3) check if all error, if so call AllError()
+    CheckAll(pt_no);
 }
 
 function CheckCheck(ind, pt_no, type) {
     console.log('CheckCheck(ind, pt_no, type): '+ind.toString()+', '+pt_no.toString()+', '+type.toString());
-    var ind = ind.toString();
-    // uncheck all in row but the one just checked
+    // 1) uncheck all in main pt row
+    CheckClass(false, ['pt-check-'+pt_no]);
+    // 2) uncheck all but checkbox selected in speciied row
     var x = document.getElementsByClassName('check-'+ind);
     for (var i = 0; i < x.length; i++) {
         if (i != (type-1)) {
             x.item(i).checked = false;
         }
     }
-    var y = document.getElementsByClassName('pt-check-'+pt_no);
-    for (var i = 0; i < y.length; i++) {
-        y.item(i).checked = false;
-    }
 }
 
 function MainCheck(pt_no, type) {
     console.log('MainCheck(pt_no, type): '+pt_no.toString()+', '+type.toString());
-    var pt_no = pt_no.toString();
-    // uncheck all in row but the one just checked
+    // 1) uncheck all but checkbox selected in main pt row
     var x = document.getElementsByClassName('pt-check-'+pt_no);
     for (var i = 0; i < x.length; i++) {
         if (i != (type-1)) {
             x.item(i).checked = false;
         }
     }
-    // tick same on all scripts
+    // 2) tick same on all scripts for pt
     var y = document.getElementsByClassName('check-pt-'+pt_no);
     var checkbox;
     for (var i = 0; i < y.length; i++) {
@@ -151,18 +145,15 @@ function MainCheck(pt_no, type) {
             y.item(i).checked = true;
         }
     }
-    // hide all scripts
+    // 3) hide all scripts
     HideScripts(pt_no);
 }
 
 function ShowHideOrange() {
-    // check if an orange error type is visible, if so, keep orange header
-    
-    // var y = document.getElementsByClassName('error-options');
     var y = document.getElementsByClassName('main-done');
     var cols;
     var option_show = false;
-
+    // 1) check if any of the all done buttons is not green
     for (var i = 0; i < y.length; i++)
     {
         console.log('checkbox '+i+' : '+y.item(i).style.display);
@@ -171,8 +162,8 @@ function ShowHideOrange() {
             break;
         }
     }
+    // 2) if so, change table shape to 10 cols and show orange header
     if (option_show == true) { cols = '10'; } else { cols = '6'; }
-
     ShowHideClass('orange', option_show, 'cell');
     var x = document.getElementsByClassName('col-change');
     for (var i = 0; i < x.length; i++) {
@@ -181,18 +172,17 @@ function ShowHideOrange() {
 }
 
 function ShowHideScripts(pt_no) {
-    
+    // 1) check if row is visible apart from ones in ids list
     var z = document.getElementsByClassName(pt_no);
     var ids = ['break-blank','break','first-row'];
     var hide = false;
-    
     for (var i = 0; i < z.length; i++) {
         if ((z.item(i).style.display == 'table-row') && !(ids.includes(z.item(i).id))) {
             hide = true;
             break;
         }
     }
-
+    // 2) if so, hide scripts for pt, else show scripts for pt
     if (hide) {HideScripts(pt_no);} 
     else {
         ShowHideClass(pt_no, true, 'row');
@@ -200,7 +190,9 @@ function ShowHideScripts(pt_no) {
 }
 
 function HideScripts(pt_no) {
+    // 1) hide all rows
     ShowHideClass(pt_no, false, 'row');
+    // 2) unhide rows that need to be shown
     ShowHideClass('stay', true, 'row');
 }
 
