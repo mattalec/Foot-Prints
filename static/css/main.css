@@ -1,14 +1,18 @@
 body {
 	display: flex;
+	padding: 0px;
 	margin: 0px;
 }
 
 table {
 	display: flex;
 	justify-content: center;
-	align-itmes: center;
+	align-items: center;
 	width: 100vw;
 	text-align: center;
+	font-size: 1.5vw;
+	padding: 0px;
+	margin: 0px;	
 }
 
 td {
@@ -21,18 +25,26 @@ h1 {
 
 .small {
 	height: 100%;
-	width: 10vw;
+	width: 10%;
 }
 .smaller {
 	height: 100%;
-	width: 5vw;
+	width: 5%;
 }
 .big {
 	height: 100%;
-	width: 20vw;
+	width: 20%;
+}
+.small-break {
+	padding: 0px;
+	margin: 0px;
+	height: 1px;
 }
 .success-button {
 	display: block;
+	padding: 0px;
+	margin: 0px;
+	height: 100%;
 	width: 100%;
 	background-color: white;
 }
@@ -57,9 +69,10 @@ h1 {
 	background: orange;
 }
 .col-change {
-	font-size: 1.5vh;
+	font-size: 1.5vw;
 	font-style: italic;
 	font-weight: bold;
+	border: 1px;
 }
 
 #table-head td {

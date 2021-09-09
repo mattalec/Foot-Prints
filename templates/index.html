@@ -34,12 +34,13 @@
 				<td class='smaller orange'>not pt</td>
 				<td class='smaller orange'>adverse reactions</td>
 			</tr>
+			<tr id='break-blank'><td class='col-change' colspan='10'></td></tr>
 
 			{% for script in scripts %}
 
 				{# if first new name #}
 				{% if loop.index0 == 0 %}
-					<tr id='break-blank'  class='{{ script[1].pt_no }} stay'><td class='col-change' colspan='6'>Requested: {{ script[1].date }}</td></tr>
+					<tr id='break-blank'  class='{{ script[1].pt_no }} stay'><td class='col-change' colspan='10'>Requested: {{ script[1].date }}</td></tr>
 					<tr id='break' class='{{ script[1].pt_no }} stay'><td class='col-change' colspan='10'></td></tr>
 					<tr id='first-row' class='{{ script[1].pt_no }} stay'>
 						<td class='smaller'>{{script[1].dob}}</td>
@@ -52,11 +53,11 @@
 						<td class='smaller error-options all-error-options-{{ script[1].pt_no }}'><input type='checkbox' class='pt-check-{{ script[1].pt_no }}' onclick='MainCheck({{ script[1].pt_no }}, 3)'></td>
 						<td class='smaller error-options all-error-options-{{ script[1].pt_no }}'><input type='checkbox' class='pt-check-{{ script[1].pt_no }}' onclick='MainCheck({{ script[1].pt_no }}, 4)'></td>
 					</tr>
-					<tr id='break'><td class='col-change' colspan='10'></td></tr>
+					<tr id='break'><td class='col-change small-break' colspan='10'></td></tr>
 
 				{# if not first new name #}
 				{% elif (script[1].full_name != scripts[script[0]-1][1].full_name) or (script[1].dob != scripts[script[0]-1][1].dob) %}
-					<tr id='break-blank' class='{{ script[1].pt_no }} stay'><td class='col-change' colspan='6'>Requested: {{ script[1].date }}</td></tr>
+					<tr id='break-blank' class='{{ script[1].pt_no }} stay'><td class='col-change' colspan='10'>Requested: {{ script[1].date }}</td></tr>
 					<tr id='break' class='{{ script[1].pt_no }} stay'><td class='col-change' colspan='10'></td></tr>
 					<tr id='first-row' class='{{ script[1].pt_no }} stay'>
 						<td>{{script[1].dob}}</td>
@@ -69,7 +70,7 @@
 						<td class='smaller error-options all-error-options-{{ script[1].pt_no }}'><input type='checkbox' class='pt-check-{{ script[1].pt_no }}' id='not-pt-check-{{ script[1].pt_no }}' onclick='MainCheck({{ script[1].pt_no }}, 3)'></td>
 						<td class='smaller error-options all-error-options-{{ script[1].pt_no }}'><input type='checkbox' class='pt-check-{{ script[1].pt_no }}' id='adverse-pt-check-{{ script[1].pt_no }}' onclick='MainCheck({{ script[1].pt_no }}, 4)'></td>					
 					</tr>
-					<tr id='break'><td class='col-change' colspan='10'></td></tr>
+					<tr id='break'><td class='col-change small-break' colspan='10'></td></tr>
 				{% endif %}
 				
 				{# load prescriptions #}
