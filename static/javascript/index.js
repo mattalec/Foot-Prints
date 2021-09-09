@@ -151,6 +151,9 @@ function MainCheck(pt_no, type) {
             y.item(i).checked = true;
         }
     }
+    // make main error red
+    document.getElementById('all-success-button-'+pt_no).style.backgroundColor = 'white';
+    document.getElementById('all-error-button-'+pt_no).style.backgroundColor = 'red';   
     // hide all scripts
     HideScripts(pt_no);
 }
