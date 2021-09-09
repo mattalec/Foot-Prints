@@ -14,9 +14,18 @@ function OnLoad() {
 }
 
 function print() {
+    console.log('print()');
     // print page
     window.print();
 }
+
+function submit() {
+    console.log('submit()');
+    // get all data from completed form and add to original database with name 'prescriptions : current datetime'
+
+    pass;
+}
+
 
 function CheckClass(check, classes) {
     // check: Boolean, classes: [''], check or uncheck classes
