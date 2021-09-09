@@ -10,12 +10,7 @@ function OnLoad() {
         document.getElementById(y.item(i).id).addEventListener("dblclick", function() { ShowHideScripts(x_id); }, false);
     }
 
-    // ShowAll();
-}
-
-function print() {
-    // print page
-    window.print();
+    ShowAll();
 }
 
 function CheckClass(check, classes) {
