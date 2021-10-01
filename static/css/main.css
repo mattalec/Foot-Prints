@@ -41,16 +41,21 @@ h1 {
 	height: 1px;
 }
 .success-button {
+	height: 100%;
+}
+.button {
+	background-color: white;
 	display: block;
 	padding: 0px;
 	margin: 0px;
 	height: 100%;
-	width: 100%;
-	background-color: white;
+	width: 100%;	
 }
-.error-button {
-	width: 100%;
-	background-color: white;
+.button-td {
+	padding: 0px;
+	margin: 0 auto;
+	height: 3.5vw;
+	width: 20vw;
 }
 .error-options {
 	display: none;
@@ -74,7 +79,9 @@ h1 {
 	font-weight: bold;
 	border: 1px;
 }
-
+.requested {
+	font-size: 1.5vw;
+}
 #table-head td {
 	font-weight: bold;
 }

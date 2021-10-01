@@ -10,13 +10,7 @@ function OnLoad() {
         document.getElementById(y.item(i).id).addEventListener("dblclick", function() { ShowHideScripts(x_id); }, false);
     }
 
-    // ShowAll();
-}
-
-function print() {
-    console.log('print()');
-    // print page
-    window.print();
+    ShowAll();
 }
 
 function submit() {
@@ -154,7 +148,10 @@ function MainCheck(pt_no, type) {
             y.item(i).checked = true;
         }
     }
-    // 3) hide all scripts
+    // make main error red
+    document.getElementById('all-success-button-'+pt_no).style.backgroundColor = 'white';
+    document.getElementById('all-error-button-'+pt_no).style.backgroundColor = 'red';   
+    // hide all scripts
     HideScripts(pt_no);
 }
 
