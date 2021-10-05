@@ -1,9 +1,7 @@
 from flask import Flask, render_template, url_for, request, redirect
-# from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
 from datetime import datetime
 import webbrowser
-#import pdfkit
 
 app = Flask(__name__)
 
@@ -34,4 +32,6 @@ def index():
 
 if __name__ == "__main__":
 	# webbrowser.open('http://127.0.0.1:5000/')
+	#!/usr/bin/python
+	import get_data
 	app.run(debug=True)
