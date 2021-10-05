@@ -24,16 +24,20 @@ def var_ind(col):
         pt_ind.append(x)
     
     return np.array(pt_ind)
-
+    
 # selenium #####################################
 
 options = webdriver.ChromeOptions() 
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
 
 # home chromedriver dir
-driver = webdriver.Chrome(options=options, executable_path=r'C:/Users/Alec/root/work/git/MPS/selenium/chromedriver.exe')
+
 # MPS chromedriver dir
-# driver = webdriver.Chrome(options=options, executable_path=r'H:/Foot-Prints/selenium/chromedriver.exe')
+place = input('are you at H (home) or W (work)?:')
+if (place.upper() == 'H'):
+    driver = webdriver.Chrome(options=options, executable_path=r'C:/Users/Alec/root/work/git/MPS/selenium/chromedriver.exe')
+elif (place.upper() == 'W'):
+    driver = webdriver.Chrome(options=options, executable_path=r'H:/Foot-Prints/selenium/chromedriver.exe')
 
 # go to footfall login
 driver.get("https://www.merrowparksurgery.org.uk/dashboard/login?intended=https://www.merrowparksurgery.org.uk/dashboard/")
@@ -50,7 +54,7 @@ ok_checkbox = driver.find_element_by_class_name('btn-success')
 ok_checkbox.send_keys(Keys.RETURN)
 
 # select prescriptions from drop down options
-time.sleep(2)
+time.sleep(3)
 drop_down = Select(driver.find_element_by_id('filter-request'))
 drop_down.select_by_value('16')
 
@@ -100,17 +104,25 @@ for ind in range(len(links)):
 
         ## strength
         if num % 3 == 0:
+            if num == 36:
+                ## additional info
+                quantity.append('')
+                print('qua')
+                print(len(quantity))
+
             strength.append(answers[num].text)
+            print('str')
+            print(len(strength))
         ## quantity
         if num % 3 == 1:
             quantity.append(answers[num].text)
+            print('qua')
+            print(len(quantity))
         ## medication
         if num % 3 == 2:
-            if num == 35:
-                ## additional info
-                strength.append('')
-                quantity.append('')
             medication.append(answers[num].text)
+            print('med')
+            print(len(medication))
 
 # pandas #####################################
 
@@ -124,7 +136,7 @@ for ind in range(len(links)):
     ds['quantity'] = quantity
     ds['date'] = [requested for _ in medication]
 
-    df.to_csv('pre-scripts.csv')
+    ds.to_csv('pre-scripts.csv')
 
     # process dataframe to be of correct format for app.html
     ## sort by date and then by name, note order used to create pt_ind
@@ -140,6 +152,20 @@ for ind in range(len(links)):
         df = pd.DataFrame()
     ## concat with larger dataframe
     df = pd.concat([ds,df])
+
+    # reply to pt and close footfall request
+    time.sleep(1)
+    reply = driver.find_element_by_id('thread-reply-button')
+    reply.send_keys(Keys.RETURN)
+
+    # quick response 
+    time.sleep(1)
+    driver.find_element_by_class_name('re-quickresponse').click()
+    driver.find_element_by_class_name('redactor-dropdown-item-item1_responses').click()
+
+
+
+
 
 ## sort
 ds = ds.sort_values(['full_name', 'date'], ascending=[True,False])
