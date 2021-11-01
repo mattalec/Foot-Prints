@@ -1,7 +1,7 @@
 # Foot-Prints
 ### footfall scraping to proccess, save and print patient requests
 
-To succefully run Foot-Prints, change the chromedriver directory in get-data.py
+To succefully run Foot-Prints, _**change the chromedriver directory in get-data.py**_
 Once ready, run => `py app.py`
 
 ---
