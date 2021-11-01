@@ -10,7 +10,7 @@ import pandas as pd
 
 # functions #####################################
 
-# creates index per variable [1,2,2,3,1,1]=>[0,0,1,0,0,1]
+# creates index per variable change [1,2,2,3,1,1]=>[0,0,1,0,0,1]
 def var_ind(col):
     pt_ind = []
     col = ds.full_name.values
@@ -35,7 +35,7 @@ options.add_experimental_option("excludeSwitches", ["enable-logging"])
 # MPS chromedriver dir
 place = input('are you at H (home) or W (work)?:')
 if (place.upper() == 'H'):
-    driver = webdriver.Chrome(options=options, executable_path=r'C:/Users/Alec/root/work/git/MPS/selenium/chromedriver.exe')
+    driver = webdriver.Chrome(options=options, executable_path=r'C:/Users/Alec/root/work/MPS/git/Foot-Prints/chromedriver.exe')
 elif (place.upper() == 'W'):
     driver = webdriver.Chrome(options=options, executable_path=r'H:/Foot-Prints/selenium/chromedriver.exe')
 
@@ -136,7 +136,7 @@ for ind in range(len(links)):
     ds['quantity'] = quantity
     ds['date'] = [requested for _ in medication]
 
-    ds.to_csv('pre-scripts.csv')
+    ds.to_csv('./data/pre-scripts.csv')
 
     # process dataframe to be of correct format for app.html
     ## sort by date and then by name, note order used to create pt_ind
@@ -164,10 +164,7 @@ for ind in range(len(links)):
     driver.find_element_by_class_name('redactor-dropdown-item-item1_responses').click()
 
 
-
-
-
 ## sort
 ds = ds.sort_values(['full_name', 'date'], ascending=[True,False])
 # save complete dataframe as csv
-df.to_csv('scripts.csv')
+df.to_csv('./data/scripts.csv')

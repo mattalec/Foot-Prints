@@ -1,11 +1,10 @@
-from flask import Flask, render_template, url_for, request, redirect
-import pandas as pd
-from datetime import datetime
+from flask import Flask, render_template, request
 import webbrowser
+import pandas as pd
 
 app = Flask(__name__)
 
-ds = pd.read_csv('scripts.csv')
+ds = pd.read_csv('./data/scripts.csv')
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -15,23 +14,10 @@ def index():
 		scripts = [row for row in ds.iterrows()]
 		return render_template('index.html', scripts=scripts)
 
-# @app.route('/update/<int:id>', methods=['GET', 'POST'])
-# def update(id):
-# 	task = Todo.query.get_or_404(id)
-
-# 	if request.method == 'POST':
-# 		task.content = request.form['content']
-
-# 		try:
-# 			db.session.commit()
-# 			return redirect('/')
-# 		except:
-# 			return 'There was an issue updating your task'
-# 	else:
-# 		return render_template('update.html', task=task)
-
 if __name__ == "__main__":
-	# webbrowser.open('http://127.0.0.1:5000/')
 	#!/usr/bin/python
-	# import get_data
+	# run selenium prescription scraping script
+	import get_data
+	webbrowser.open('http://127.0.0.1:5000/')
 	app.run(debug=True)
+	
